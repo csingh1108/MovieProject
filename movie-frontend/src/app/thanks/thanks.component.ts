@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {BookingInfoService} from "../booking-info.service";
 import {ConfirmToThanksService} from "../confirm-to-thanks.service";
 import {BookingDto} from "../booking-dto";
 

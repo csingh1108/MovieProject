@@ -1,13 +1,15 @@
 <app-header></app-header>
 <div class="movie-details-container" *ngIf="movie">
-  <h1 class="title">{{ movie.title }}</h1>
+  <h1 class="title">Title: {{ movie.title }}</h1>
+  <div class="image-container">
   <img class="image-url" [src]="movie.imageurl" alt="Promotional image of movie">
+  </div>
   <div class="synopsis-container">
     <h2 class="synopsis-title">Synopsis</h2>
     <div class="synopsis">{{ movie.synopsis }}</div>
     <div class="details-row">
       <div class="duration">{{ movie.duration }} minutes</div>
-      <div class="genre">{{ movie.genre.join(', ') }}</div>
+      <div class="genre">Genre: {{ movie.genre.join(', ') }}</div>
     </div>
   </div>
 
@@ -18,7 +20,7 @@
       <button (click)="decreaseTicketCount()">-</button>
       <span class="ticket-count">{{ ticketCount }}</span>
       <button (click)="increaseTicketCount()">+</button>
-      <p class="ticket-price">Ticket Price: {{ movie.ticketPrice }}</p>
+      <p class="ticket-price">Ticket Price: ${{ movie.ticketPrice }}</p>
     </div>
     <div class="ticket-price-container">
 

@@ -28,10 +28,6 @@ public class Booking {
     private String receiptId;         // Unique ID for the booking receipt
     private LocalDateTime receiptDate; // Date and time when the receipt was generated
 
-    // Constructor
-    public Booking(Integer userId, String movieTitle, String selectedTime, int ticketCount, double total, List<String> selectedSeats) {
-
-    }
 
     // This method is automatically executed before the entity is persisted (saved) to the database.
     @PrePersist

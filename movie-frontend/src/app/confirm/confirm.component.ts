@@ -42,8 +42,8 @@ export class ConfirmComponent implements OnInit {
     }
 
     this.paymentInfoService.getPaidStatus().subscribe((response: boolean) => {
-      this.isPaidFor = response;
-      console.log(this.isPaidFor);
+       this.isPaidFor = response;
+       console.log(this.isPaidFor);
     });
   }
 
@@ -54,9 +54,17 @@ export class ConfirmComponent implements OnInit {
       return;
     }
 
-    if (this.loginToMainService.getIsLoggedIn()) {
-      // If user is logged in, create booking with user ID
-      this.bookingService.createBooking(this.loginToMainService.getUserID())
+    let userId: number | null = null;
+
+    this.loginToMainService.getIsLoggedIn().subscribe(isLoggedIn => {
+      if (isLoggedIn) {
+        userId = this.loginToMainService.getUserID();
+      }
+      this.C2TService.setName(this.name);
+      this.C2TService.setEmail(this.email);
+
+
+      this.bookingService.createBooking(userId)
         .subscribe(
           (response: BookingDto) => {
             this.C2TService.setBookingData(response);
@@ -65,13 +73,11 @@ export class ConfirmComponent implements OnInit {
           (error) => {
             console.error("An error occurred during booking:", error);
           });
-    } else {
-      // If user is not logged in, set name and email, then navigate
-      this.C2TService.setName(this.name);
-      this.C2TService.setEmail(this.email);
-      this.router.navigate(['thanks']);
-    }
+    });
   }
+
+
+
 
   // Navigate back to the previous page
   navigateBack() {

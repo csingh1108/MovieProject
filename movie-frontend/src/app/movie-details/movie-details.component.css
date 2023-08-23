@@ -10,10 +10,12 @@
 }
 
 .image-url {
-  width: 100%;
+  display: block;
+  width: 500px;
   max-height: 500px;
-  margin-top: 20px;
+  margin: 20px auto;
 }
+
 
 .synopsis-container {
   border: 1px solid #000;
@@ -149,7 +151,6 @@
 }
 
 .checkout-container{
-  width: 750px;
   margin: 50px auto;
   display: flex;
   justify-content: space-between;
@@ -164,6 +165,7 @@
   border:none;
   padding: 10px;
   border-radius: 5px;
+  width: 100px;
 }
 
 .cancel-button{
@@ -174,6 +176,7 @@
   border:none;
   padding: 10px;
   border-radius: 5px;
+  width: 100px;
 }
 
 .checkout-button:hover,

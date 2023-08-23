@@ -34,13 +34,21 @@ public class BookingController {
             @RequestParam("selectedSeats") List<String> selectedSeats) {
 
 
-        Booking booking = new Booking(userId, movieTitle, selectedTime, ticketCount, total, selectedSeats);
+        Booking booking = new Booking();
+        booking.setUserId(userId);
+        booking.setMovieTitle(movieTitle);
+        booking.setSelectedTime(selectedTime);
+        booking.setTicketCount(ticketCount);
+        booking.setTotal(total);
+        booking.setSelectedSeats(selectedSeats);
+
         boolean success = bookingService.createBooking(booking);
 
         return success
                 ? new ResponseEntity<>(booking, HttpStatus.CREATED)
                 : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
 
     // Get all bookings grouped by user
     @GetMapping("/all")

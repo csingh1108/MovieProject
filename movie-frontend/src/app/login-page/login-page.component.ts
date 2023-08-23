@@ -33,7 +33,7 @@ export class LoginPageComponent implements OnInit{
           this.loginToMain.setUserEmail(response.email);
           this.loginToMain.setUserID(response.uid);
           this.loginToMain.setUserRole(response.role)
-          this.router.navigateByUrl('');
+          this.router.navigate(['/main'], { replaceUrl: true })
         } else {
           // Login failed, show snackbar message
           this.openSnackBar("Login failed. Please Try again later.", "OK")

@@ -21,13 +21,18 @@ import {PaymentModuleComponent} from "./payment-module/payment-module.component"
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: '/main',
+    pathMatch: 'full'
+  },
+  {
     path:'login', component: LoginPageComponent
   },
   {
     path:'register', component: RegisterComponent
   },
   {
-    path:'', component: MainPageComponent
+    path:'main', component: MainPageComponent
   },
   {
     path: 'movies', component: MovieLayoutComponent
