@@ -1,0 +1,74 @@
+<div class="button-container">
+  <div class="add-container">
+    <button mat-button class="add-button" routerLink="../movies/add"
+            matTooltip="Click to navigate to add movie page">
+      Add Movie(s)
+    </button>
+  </div>
+  <div class="refresh-button">
+    <button mat-button (click)="refreshData()"
+            matTooltip="Click to refresh movie data">
+      <mat-icon>refresh</mat-icon>Refresh
+    </button>
+  </div>
+  <div class="changes-container">
+    <button mat-button class="changes-button" (click)="submitChanges()"
+    matTooltip="Click to update enabled movies on customer page">
+      Enable Movie(s)
+    </button>
+  </div>
+</div>
+
+
+<div class="movie-list">
+  <table>
+    <thead>
+    <tr>
+      <th>Movie ID</th>
+      <th>Title</th>
+      <th>Time Slots</th>
+      <th class="rating-cell">Rating</th>
+      <th class="expanded-column">Image</th>
+      <th>Duration</th>
+      <th>Ticket Price</th>
+      <th>Synopsis</th>
+      <th>Genre</th>
+      <th matTooltip="All fields must be completed to enable a movie.">Enable movie</th>
+      <th>Options</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let movie of allMovies">
+      <td class="id-cell">{{ movie.movieId }}</td>
+      <td>{{ movie.title }}</td>
+      <td>{{ movie.timeSlots }}</td>
+      <td class="rating-cell">{{ movie.rating }}</td>
+      <td class="image-cell">
+        <img [src]="movie.imageurl" alt="Movie Screen" class="movie-image">
+      </td>
+      <td>{{ movie.duration }} minutes</td>
+      <td>${{ movie.ticketPrice }}</td>
+      <td>{{ movie.synopsis }}</td>
+      <td>{{ movie.genre }}</td>
+      <td><mat-checkbox
+        [checked]="movie.enabled"
+        (click)="changeMovieStatus(movie.movieId)"
+        [disabled]="!isAllFieldsFilled(movie)"
+      >
+        Enabled?
+      </mat-checkbox></td>
+      <td class="options-box">
+        <button class="edit-button"
+                [routerLink]="['/corporate/main/movies/edit', movie.movieId]"
+                [queryParams]="{ title: movie.title, timeSlots: movie.timeSlots, rating: movie.rating, imageurl: movie.imageurl, duration: movie.duration, ticketPrice: movie.ticketPrice, synopsis: movie.synopsis, genre: movie.genre }">
+          Edit
+        </button>
+        <button class="delete-button" (click)="deleteMovie(movie.movieId)">
+          Delete
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

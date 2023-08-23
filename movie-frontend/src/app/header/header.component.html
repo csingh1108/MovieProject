@@ -1,0 +1,21 @@
+<div class="header">
+  <div class="logo-and-nav">
+    <div class="theater-theme">
+      <div class="curtains"></div>
+      <div class="spotlight"></div>
+      <div class="reel"></div>
+    </div>
+    <nav class="navigation">
+      <ul>
+        <li><a routerLink="/">Home</a></li>
+        <li><a href="#">Movies</a></li>
+        <li><a href="#">Extras</a></li>
+        <li><a href="#">Members</a></li>
+        <li><a href="#">Shop</a></li>
+      </ul>
+    </nav>
+    <div class="admin-button-container" *ngIf="checkUserIsAdmin()">
+      <button mat-button class="admin-button" (click)="navigateToMovies()">Admin</button>
+    </div>
+  </div>
+</div>

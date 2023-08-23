@@ -1,0 +1,45 @@
+<div class="button-container">
+<div class="refresh-button">
+  <button mat-button (click)="refreshData()" >
+    <mat-icon>refresh</mat-icon>Refresh</button>
+</div>
+</div>
+
+<div class="booking-list">
+  <table>
+    <thead>
+    <tr>
+      <th>Username</th>
+      <th>Booking ID</th>
+      <th>Movie Title</th>
+      <th>Selected Time</th>
+      <th>Ticket Count</th>
+      <th>Total</th>
+      <th>Receipt ID</th>
+      <th>Receipt Date</th>
+      <th>Selected Seats</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let group of bookings | keyvalue">
+      <tr *ngFor="let booking of group.value.bookings">
+        <td>{{ group.key }}</td>
+        <td>{{ booking.id }}</td>
+        <td>{{ booking.movieTitle }}</td>
+        <td>{{ booking.selectedTime }}</td>
+        <td>{{ booking.ticketCount }}</td>
+        <td>${{ booking.total }}</td>
+        <td>{{ booking.receiptId }}</td>
+        <td>{{ booking.receiptDate | date:'MM-dd-yyyy hh:mm a' }}</td>
+        <td>{{ booking.selectedSeats }}</td>
+        <td>
+          <button class="delete-button" (click)="deleteBooking(booking.id)">Delete</button>
+        </td>
+      </tr>
+    </ng-container>
+    </tbody>
+  </table>
+
+</div>
+

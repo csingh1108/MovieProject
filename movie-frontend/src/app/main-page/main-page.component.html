@@ -1,0 +1,10 @@
+<app-header></app-header>
+<div class="main-container">
+  <div class="movie-layout-container">
+    <app-movie-layout></app-movie-layout>
+  </div>
+
+  <div class="login-container">
+    <app-login-page *ngIf="(isUserLoggedIn() | async) === false"></app-login-page>
+  </div>
+</div>

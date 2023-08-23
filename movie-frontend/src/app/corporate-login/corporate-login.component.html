@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="theater-theme">
+    <div class="curtains"></div>
+    <div class="spotlight"></div>
+    <div class="reel"></div>
+  </div>
+  <h1>Admin Login</h1>
+  <form (ngSubmit)="onSubmit()" class="login-form">
+    <input type="text" [(ngModel)]="username" name="username" placeholder="Username" required>
+    <input type="password" [(ngModel)]="password" name="password" placeholder="Password" required>
+    <button type="submit">Log In</button>
+  </form>
+</div>

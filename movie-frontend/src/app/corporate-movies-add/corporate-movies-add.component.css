@@ -1,0 +1,268 @@
+.refresh-button {
+  display: inline-block;
+  padding: 0px 8px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #3498db;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.refresh-button:hover {
+  background-color: #2980b9;
+}
+
+.mat-icon-override {
+  font-size: 18px;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.movie-list table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.movie-list th,
+.movie-list td {
+  border: 1px solid #ddd;
+  padding: 6px;
+  text-align: left;
+}
+
+.movie-list th {
+  background-color: #f2f2f2;
+}
+
+.movie-list .rating-cell {
+  width: 60px;
+  text-align: center;
+}
+
+.movie-list-container{
+  margin: 0 150px;
+}
+
+.options-box {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.edit-button, .delete-button {
+  padding: 6px 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 6px 0 6px 0 ;
+}
+
+.add-button {
+  background-color: #4caf50;
+  color: white;
+  display: inline-block;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+  margin-right: 16px;
+}
+
+.edit-button {
+  background-color: #2196f3;
+  color: white;
+}
+
+.delete-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.addMovie-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+  width: 100px;
+}
+
+mat-slider{
+  width:200px;
+}
+
+.results-title{
+  text-align: center;
+}
+
+.addMovie-button:hover {
+  background-color: #45a049;
+}
+
+.removeMovie-button {
+  background-color: #f44336;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+  width: 100px;
+}
+
+.removeMovie-button:hover {
+  background-color: #d32f2f;
+}
+
+.filter-section {
+    margin: 20px 0;
+}
+
+.filter-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.genre-filter,
+.sort-filter {
+  width: 250px;
+}
+
+.apply-filter-button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    margin-right: 50px;
+}
+
+.apply-filter-button:hover {
+    background-color: #2980b9;
+}
+
+.slider-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+    margin-left: 50px;
+}
+
+.filter-label{
+    font-size: 18px;
+    margin-bottom: 10px;
+    margin-left: 150px;
+}
+
+.slider-container {
+    display: flex;
+    justify-content: center;
+}
+
+.year-slider {
+    width: 80%;
+}
+
+.rating-slider{
+    margin-left: 25px;
+    margin-right: 200px;
+    width: 300px;
+}
+
+
+.filter-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-item {
+  margin-left: 10px;
+}
+
+@media (max-width: 600px) {
+  .filter-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .filter-item {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .apply-filter-button {
+    margin-top: 10px;
+  }
+}
+
+.confirm-button{
+  background-color: #4caf50;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: normal;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  padding: 0 8px;
+  color: #fff;
+
+}
+
+.search-bar-section {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.search-input {
+  width: 500px;
+  margin-right: 10px;
+}
+
+.search-button {
+  padding: 8px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.centered-container {
+  display: flex;
+  justify-content: center;
+}
+
+.search-bar-section {
+  display: flex;
+  align-items: center;
+}
+
+
+
+
+
+
+

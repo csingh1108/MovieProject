@@ -1,0 +1,17 @@
+.movie-card {
+  width: 270px;
+  height: 600px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+
+}
+
+img{
+  height: 200px;
+  padding: 10px;
+}
+
+p{
+  padding-bottom: 10px;
+}

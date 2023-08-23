@@ -1,0 +1,117 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f8f8f8;
+}
+
+.theater-theme {
+  position: relative;
+  width: 600px;
+  height: 300px;
+  background-color: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+}
+
+.curtains {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background-color: #C0392B;
+}
+
+.curtains::before,
+.curtains::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background-color: #C0392B;
+  transform: skewX(30deg);
+}
+
+.curtains::before {
+  left: 0;
+}
+
+.curtains::after {
+  right: 0;
+  transform: skewX(-30deg);
+}
+
+.spotlight {
+  position: relative;
+  top: 50px;
+  left: 50%;
+  width: 160px;
+  height: 160px;
+  background-color: #FFF;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 60px rgba(255, 255, 255, 0.8);
+}
+
+.reel {
+  position: relative;
+  top: 30px;
+  left: 40px;
+  width: 200px;
+  height: 200px;
+  border-radius: 75%;
+  background-image: url('src/assets/13432033-movie-theme-design.webp');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+h1 {
+  font-family: 'Arial', sans-serif;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  padding: 8px 12px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button[type="submit"] {
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.register-btn {
+  padding: 10px 20px;
+  background-color: #27AE60;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+.register-btn:hover {
+  background-color: #1F8B4C;
+}

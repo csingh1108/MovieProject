@@ -1,0 +1,17 @@
+<mat-card class="movie-card">
+  <mat-card-header>
+    <div></div>
+    <mat-card-title>{{movie.title}}</mat-card-title>
+    <mat-card-subtitle>{{movie.releaseDate}}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image [src] = movie.imageurl alt="Promotional image of movie">
+  <mat-card-content>
+    <p>
+      {{movie.synopsis}}
+    </p>
+    Rating: {{movie.rating}} /10
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="onBuyTicket(movie)">Buy Tickets!</button>
+  </mat-card-actions>
+</mat-card>

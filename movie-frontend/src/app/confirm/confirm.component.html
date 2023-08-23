@@ -1,0 +1,17 @@
+<app-header></app-header>
+<div class="payment-container">
+  <app-payment-module></app-payment-module>
+
+  <div class="input-container">
+    <label for="name">Name:</label>
+    <input type="text" id="name" [(ngModel)]="name" class="input-field" />
+    <label for="email">Email:</label>
+    <input type="email" id="email" [(ngModel)]="email" class="input-field" />
+  </div>
+
+  <div class="button-container">
+    <button class="previous-button" (click)="navigateBack()">Previous</button>
+    <button class="next-button" [disabled]="!isPaidFor || !name || !email" (click)="continueToThanks()">Next</button>
+  </div>
+
+  </div>

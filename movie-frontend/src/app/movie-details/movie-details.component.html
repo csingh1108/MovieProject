@@ -1,0 +1,61 @@
+<app-header></app-header>
+<div class="movie-details-container" *ngIf="movie">
+  <h1 class="title">{{ movie.title }}</h1>
+  <img class="image-url" [src]="movie.imageurl" alt="Promotional image of movie">
+  <div class="synopsis-container">
+    <h2 class="synopsis-title">Synopsis</h2>
+    <div class="synopsis">{{ movie.synopsis }}</div>
+    <div class="details-row">
+      <div class="duration">{{ movie.duration }} minutes</div>
+      <div class="genre">{{ movie.genre.join(', ') }}</div>
+    </div>
+  </div>
+
+  <h3>Select number of tickets:</h3>
+  <div class="ticket-counter-container">
+
+    <div class="ticket-counter">
+      <button (click)="decreaseTicketCount()">-</button>
+      <span class="ticket-count">{{ ticketCount }}</span>
+      <button (click)="increaseTicketCount()">+</button>
+      <p class="ticket-price">Ticket Price: {{ movie.ticketPrice }}</p>
+    </div>
+    <div class="ticket-price-container">
+
+      <p class="ticket-total">Total: $ {{ totalTicketPrice }}</p>
+    </div>
+  </div>
+
+  <div class="time-slots-container">
+    <h3>Select time:</h3>
+    <ul>
+      <li *ngFor="let timeSlot of movie.timeSlots.split(',')"
+          (click)="selectTimeSlot(timeSlot)"
+          [ngClass]="{ 'selected-time-slot': selectedTimeSlot === timeSlot }">
+        {{ timeSlot }}
+      </li>
+    </ul>
+  </div>
+
+  <h3>Select Your Seat(s):</h3>
+  <h4> {{availableSeats}} seat(s) remaining.</h4>
+  <div class="seat-picker-container">
+    <div class="seat-grid">
+      <div *ngFor="let row of seatRows; let rowIndex = index" class="seat-row">
+        <div *ngFor="let seat of row; let seatIndex = index"
+             class="seat"
+             [ngClass]="{ 'selected-seat': isSelected(seat) }"
+             (click)="selectSeat(seat)">
+          {{ seat }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="checkout-container">
+    <button class="cancel-button" (click)="cancel()">Cancel</button>
+    <button class="checkout-button" (click)="checkout()">Next</button>
+
+  </div>
+
+</div>

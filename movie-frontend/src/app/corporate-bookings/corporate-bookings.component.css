@@ -1,0 +1,60 @@
+.booking-list {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.booking-list td,
+.booking-list th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.booking-list th {
+  background-color: #f2f2f2;
+}
+
+.button-container {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  margin-right: 16px;
+  margin-top: 16px;
+}
+
+.delete-button {
+  background-color: #f44336;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  padding: 6px 12px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.mat-icon-override {
+  font-size: 18px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.refresh-button {
+  background-color: #3498db;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  padding: 0 8px;
+  transition: background-color 0.3s ease;
+}
+
+.refresh-button:hover {
+  background-color: #2980b9;
+}

@@ -1,0 +1,32 @@
+<div class="button-container">
+  <div class="refresh-button">
+    <button mat-button (click)="refreshData()" >
+      <mat-icon>refresh</mat-icon>Refresh</button>
+  </div>
+</div>
+
+<div class="user-list">
+  <table>
+    <thead>
+    <tr>
+      <th>UID</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of allUsers">
+      <td>{{ user.uid }}</td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.role }}</td>
+      <td>
+        <button class="delete-button" (click)="deleteUser(user.uid)">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

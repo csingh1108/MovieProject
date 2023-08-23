@@ -1,0 +1,18 @@
+<app-header></app-header>
+<div class="receipt-container">
+  <div class="header">
+    <h3>Thanks, {{ userName }}!</h3>
+    <h4>A receipt has been sent to {{ userEmail }}</h4>
+  </div>
+
+  <div class="movie-details">
+    <p>{{ movieTitle }}</p>
+    <p>{{ movieTime }} - ${{ totalCost }}</p>
+    <p>Seats: {{ seatNumbers }}</p>
+  </div>
+
+  <div class="receipt-info">
+    <p>Receipt ID: {{ receiptId }}</p>
+    <p>Date of Purchase: {{ receiptDate | date:'medium' }}</p>
+  </div>
+</div>
