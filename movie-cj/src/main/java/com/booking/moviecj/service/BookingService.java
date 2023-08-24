@@ -35,14 +35,16 @@ public class BookingService {
     public Map<String, Map<String, List<BookingResponseDTO>>> getAllBookingsGroupedByUser() {
         List<Booking> allBookings = bookingRepository.findAll();
 
+        //Find Usernames from UserId on Bookings Object
         Map<Integer, String> userIdToUsername = userRepository.findAllById(
                         allBookings.stream()
-                                .filter(booking -> booking.getUserId() != null)
                                 .map(Booking::getUserId)
+                                .filter(Objects::nonNull)
                                 .collect(Collectors.toList()))
                 .stream()
                 .collect(Collectors.toMap(User::getUid, User::getUsername));
 
+        //Collect Bookings that have user ID
         Map<String, List<BookingResponseDTO>> bookingsByUsername = allBookings.stream()
                 .filter(booking -> booking.getUserId() != null)
                 .map(booking -> mapToBookingResponseDTO(booking, userIdToUsername.get(booking.getUserId())))
@@ -54,7 +56,7 @@ public class BookingService {
         List<BookingResponseDTO> noUserBookings = allBookings.stream()
                 .filter(booking -> booking.getUserId() == null)
                 .map(booking -> mapToBookingResponseDTO(booking, null))
-                .collect(Collectors.toList());
+                .toList();
         groupedBookings.put("--Null--", Map.of("bookings", noUserBookings));
 
         // Add grouped bookings with userIds and usernames
@@ -65,9 +67,7 @@ public class BookingService {
         return groupedBookings;
     }
 
-
-
-
+    //Map Booking and Username to DTO to send to frontend
     private BookingResponseDTO mapToBookingResponseDTO(Booking booking, String username) {
         return new BookingResponseDTO(
                 booking.getId(),
@@ -82,6 +82,7 @@ public class BookingService {
         );
     }
 
+    //Find and delete booking by ID
     public Boolean deleteBookingByID(Integer bid) {
         Optional<Booking> bookingOptional = bookingRepository.findById(bid);
 

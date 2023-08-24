@@ -3,6 +3,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {MovieInfoService} from "../movie-info.service";
 import {MovieDto} from "../movie-dto";
 
+
 @Component({
   selector: 'app-corporate-movies',
   templateUrl: './corporate-movies.component.html',
@@ -30,7 +31,7 @@ export class CorporateMoviesComponent implements OnInit{
         this.allMovies = response;
       },
       (error) => {
-        console.error('Error fetching users', error)
+        console.error('Error fetching movies', error)
       }
     )
   }
@@ -56,7 +57,7 @@ export class CorporateMoviesComponent implements OnInit{
             }
            },
       (error) => {
-        console.error('Error deleting user:', error);
+        console.error('Error deleting movie:', error);
       }
         )
       }
@@ -96,12 +97,22 @@ export class CorporateMoviesComponent implements OnInit{
     this.movieService.submitChanges(this.changedMovieIds)
       .subscribe(
         response => {
-          this.openSnackBar(response, "OK");
+          if (response.message) {
+            this.openSnackBar(response.message, "OK");
+          } else {
+            this.openSnackBar("An unknown error occurred.", "OK");
+          }
         },
         err => {
-          this.openSnackBar("There was an error. Try again later.", "OK");
+          if (err.error && err.error.message) {
+            this.openSnackBar("There was an error: " + err.error.message, "OK");
+          } else {
+            this.openSnackBar("An unknown error occurred.", "OK");
+          }
         }
       );
-    this.changedMovieIds=[];
+    this.changedMovieIds = [];
   }
+
+
 }

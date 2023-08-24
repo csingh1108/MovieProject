@@ -46,20 +46,28 @@ export class MovieInfoService {
     const url = `http://localhost:8080/api/movies/importMovies`;
 
     let params = new HttpParams();
-    if (startYear !== undefined) {
-      params = params.set('startYear', startYear.toString());
-    }
-    if (endYear == undefined) {
-      endYear=new Date().getFullYear() -1
+      if (startYear !== undefined) {
+        params = params.set('startYear', startYear.toString());
+      } else {
+        params = params.set('startYear', '1980');
+      }
+
+      if (endYear === undefined) {
+        endYear = new Date().getFullYear() - 1;
+      }
       params = params.set('endYear', endYear.toString());
-    }
-      params = params.set('endYear', endYear.toString());
-    if (minRating !== undefined) {
-      params = params.set('minRating', minRating.toString());
-    }
-    if (maxRating !== undefined) {
-      params = params.set('maxRating', maxRating.toString());
-    }
+
+      if (minRating !== undefined) {
+        params = params.set('minRating', minRating.toString());
+      } else {
+        params = params.set('minRating', '0');
+      }
+
+      if (maxRating !== undefined) {
+        params = params.set('maxRating', maxRating.toString());
+      } else {
+        params = params.set('maxRating', '10');
+      }
     if (genre !== undefined) {
       // @ts-ignore
         params = params.set('genre', genre);
@@ -108,7 +116,7 @@ export class MovieInfoService {
   submitChanges(changedMovieIds: number[]) {
     const url = `http://localhost:8080/api/movies/updateMovieStatus`;
 
-    return this.httpClient.post<string>(url, changedMovieIds);
+    return this.httpClient.post<any>(url, changedMovieIds);
   }
 
 

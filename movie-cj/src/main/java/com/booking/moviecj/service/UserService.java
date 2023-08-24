@@ -19,19 +19,22 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    //Create user in DB
     public User createUser(User user) {
         return userRepository.save(user);
     }
 
+    //Get all users in DB
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
+    //Get users by username
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-
+    //Update users by username
     public User updateUserByUsername(String username, User updatedUser) {
         User user = userRepository.findByUsername(username);
         if (user != null) {
@@ -42,7 +45,7 @@ public class UserService {
         }
     }
 
-
+    //Update user email by user ID
     public User updateUserEmail(int userId, String email) {
         Optional<User> optionalUser = userRepository.findById(userId);
         if (optionalUser.isPresent()) {
@@ -54,6 +57,7 @@ public class UserService {
         }
     }
 
+    //Update user password by user ID
     public User updateUserPassword(int userId, String password) {
         Optional<User> optionalUser = userRepository.findById(userId);
         if (optionalUser.isPresent()) {
@@ -65,6 +69,7 @@ public class UserService {
         }
     }
 
+    //Check if user password is correct for login
     public boolean isPasswordCorrect(String username, String password) {
         // Retrieve the user from the database based on the provided username
         User user = userRepository.findByUsername(username);
@@ -80,21 +85,25 @@ public class UserService {
 
     }
 
+    //Get user email by username
     public String getUserEmail(String username) {
         User user = userRepository.findByUsername(username);
         return user.getEmail();
     }
 
+    //Get user ID by username
     public Integer getUserID(String username) {
         User user = userRepository.findByUsername(username);
         return user.getUid();
     }
 
+    //Get user role by username
     public JobType getUserRole(String username) {
         User user = userRepository.findByUsername(username);
         return user.getRole();
     }
 
+    //Delete user by user ID
     public Boolean deleteUserByUserID(Integer uid) {
         Optional<User> userOptional = userRepository.findById(uid);
 
@@ -107,6 +116,7 @@ public class UserService {
         }
     }
 
+    //Find username by user ID
     public String findUsernameById(Integer uid) {
         Optional<User> userOptional = userRepository.findById(uid);
 
@@ -118,7 +128,7 @@ public class UserService {
         }
     }
 
-
+    //Get user login status by username
     public Boolean getUserStatus(String username) {
         User user = userRepository.findByUsername(username);
         return user.getIsLoggedIn();

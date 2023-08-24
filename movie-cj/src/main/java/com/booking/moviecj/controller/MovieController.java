@@ -116,11 +116,11 @@ public class MovieController {
             @RequestParam(required = false) String genre,
             @RequestParam(required = false) String sort,
             @RequestParam(required = false) String searchText) {
-        // Handle defaults for filters
-        handleFilterDefaults(startYear, endYear, minRating, maxRating);
+
         List<ImportedMovie> importedMovies = importMovieService.fetchMovies(startYear, endYear, minRating, maxRating, genre, sort);
         // Apply search filter if searchText is provided
         applySearchFilter(importedMovies, searchText);
+
         return new ResponseEntity<>(importedMovies, HttpStatus.OK);
     }
 
@@ -140,15 +140,18 @@ public class MovieController {
 
     // Update movie status
     @PostMapping("/updateMovieStatus")
-    public ResponseEntity<String> updateMovies(@RequestBody List<Integer> changedMovieIds) {
+    public ResponseEntity<Map<String, String>> updateMovies(@RequestBody List<Integer> changedMovieIds) {
         try {
             movieService.toggleMovieStatus(changedMovieIds);
-            return new ResponseEntity<>("Movies updated successfully", HttpStatus.OK);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Movies updated successfully");
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("Error updating: " + e, HttpStatus.INTERNAL_SERVER_ERROR);
+            Map<String, String> response = new HashMap<>();
+            response.put("error", "Error updating: " + e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 
     // Helper methods
     private void updateMovieFields(Movie existingMovie, Movie updatedMovie) {
@@ -177,29 +180,10 @@ public class MovieController {
 
     }
 
-    private void handleFilterDefaults(Integer startYear, Integer endYear, Double minRating, Double maxRating) {
-        if (startYear == null) {
-            startYear = LocalDate.now().getYear();
-        }
-        if (endYear == null) {
-            endYear = LocalDate.now().getYear();
-        }
-        if (minRating == null) {
-            minRating = 0.0;
-        }
-        if (maxRating == null) {
-            maxRating = 10.0;
-        }
-    }
 
     private void applySearchFilter(List<ImportedMovie> movies, String searchText) {
         if (searchText != null && !searchText.isEmpty()) {
-            movies = movies.stream()
-                    .filter(movie -> movie.getTitle().toLowerCase().contains(searchText.toLowerCase()))
-                    .collect(Collectors.toList());
+            movies.removeIf(movie -> !movie.getTitle().toLowerCase().contains(searchText.toLowerCase()));
         }
     }
-
-
-
 }

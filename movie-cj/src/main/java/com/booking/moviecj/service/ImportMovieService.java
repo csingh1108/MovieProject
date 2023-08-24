@@ -11,10 +11,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,18 +23,20 @@ public class ImportMovieService{
     @Value("${rapidapiKey}")
     private String RAPIDAPI_KEY;
 
+    //Import movies with listed filters
     public List<ImportedMovie> fetchMovies(int startYear, int endYear, double minRating, double maxRating, String genre, String sort) {
         try {
             String url;
 
+            //Api call does not support alphabetical so reset sort before call
             if ("alphabetical".equalsIgnoreCase(sort)) {
                 url = constructURL(startYear, endYear, minRating, maxRating, genre, ""); // Set sort to empty for URL
             } else {
                 url = constructURL(startYear, endYear, minRating, maxRating, genre, sort);
             }
-
+            // Make HTTP request to the API
             String response = makeHttpRequest(url);
-
+            // Parse the API response into a list of ImportedMovie objects
             List<ImportedMovie> importedMovies = parseResponse(response);
 
             // If sort was "alphabetical", sort the results alphabetically by title
@@ -51,7 +50,7 @@ public class ImportMovieService{
         }
     }
 
-
+    //Construct api call based on existing inputs
     private String constructURL(Integer startYear, Integer endYear, Double minRating, Double maxRating, String genre, String sort) {
         StringBuilder urlBuilder = new StringBuilder("https://ott-details.p.rapidapi.com/advancedsearch?type=movie&page=1");
 
@@ -77,7 +76,7 @@ public class ImportMovieService{
         return urlBuilder.toString();
     }
 
-
+    //Sends GET request to online Movie DB
     private String makeHttpRequest(String url) throws IOException, InterruptedException{
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
@@ -90,41 +89,57 @@ public class ImportMovieService{
         return response.body();
     }
 
+    // Maps Response from API to Imported Movie Object
     private List<ImportedMovie> parseResponse(String response) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Object> responseMap = objectMapper.readValue(response, new TypeReference<Map<String, Object>>() {});
         List<Map<String, Object>> results = (List<Map<String, Object>>) responseMap.get("results");
 
-        List<ImportedMovie> importedMovies = results.stream()
-                .map(result -> {
-                    ImportedMovie movie = new ImportedMovie();
-                    movie.setImdbid((String) result.get("imdbid"));
-                    movie.setTitle((String) result.get("title"));
-                    movie.setImageurl((List<String>) result.get("imageurl"));
-                    movie.setSynopsis((String) result.get("synopsis"));
+        List<ImportedMovie> importedMovies = new ArrayList<>();
 
-                    // Handle casting of imdbRating
-                    Object imdbRatingObject = result.get("imdbrating");
-                    if (imdbRatingObject instanceof Double) {
-                        movie.setImdbRating(((Double) imdbRatingObject).intValue());
-                    } else if (imdbRatingObject instanceof Integer) {
-                        movie.setImdbRating((Integer) imdbRatingObject);
-                    }
+        //Iterate through the API results and map them to ImportedMovie objects
+        for (Map<String, Object> result : results) {
+            ImportedMovie movie = new ImportedMovie();
+            movie.setImdbid((String) result.get("imdbid"));
+            movie.setTitle((String) result.get("title"));
 
-                    movie.setReleaseDate((Integer) result.get("released"));
+            Object imageurlObject = result.get("imageurl");
+            if (imageurlObject instanceof List) {
+                List<String> imageurlList = ((List<?>) imageurlObject)
+                        .stream()
+                        .map(Object::toString)
+                        .collect(Collectors.toList());
+                movie.setImageurl(imageurlList);
+            }
 
-                    // Handle casting of genre
-                    List<String> genreList = (List<String>) result.get("genre");
-                    movie.setGenre(genreList);
+            movie.setSynopsis((String) result.get("synopsis"));
 
-                    return movie;
-                })
-                .collect(Collectors.toList());
+            Object imdbRatingObject = result.get("imdbrating");
+            if (imdbRatingObject instanceof Number) {
+                movie.setImdbRating((int) ((Number) imdbRatingObject).doubleValue());
+            }
+
+            Object releaseDateObject = result.get("released");
+            if (releaseDateObject instanceof Number) {
+                movie.setReleaseDate(((Number) releaseDateObject).intValue());
+            }
+
+            Object genreObject = result.get("genre");
+            if (genreObject instanceof List) {
+                List<String> genreList = castListToStringList((List<?>) genreObject);
+                movie.setGenre(genreList);
+            }
+
+            importedMovies.add(movie);
+        }
 
         return importedMovies;
     }
 
-
-
-
+    //Helper method to convert a list of objects to a list of strings
+    private List<String> castListToStringList(List<?> list) {
+        return list.stream()
+                .map(Object::toString)
+                .collect(Collectors.toList());
+    }
 }
